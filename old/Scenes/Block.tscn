@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://d2yaqavqaey88"]
+
+[node name="Block" type="Node2D" unique_id=342584859]
+
+[node name="Block" type="Sprite2D" parent="." unique_id=185547095]
+texture_filter = 1
+centered = false

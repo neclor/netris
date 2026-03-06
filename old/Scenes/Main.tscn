@@ -1,56 +1,56 @@
-[gd_scene load_steps=12 format=3 uid="uid://mhodfmyfghx0"]
+[gd_scene format=3 uid="uid://mhodfmyfghx0"]
 
-[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_2pg0b"]
-[ext_resource type="AudioStream" uid="uid://df6ssujw5pat8" path="res://Assets/Music/Netris_ost.mp3" id="2_i3wbw"]
-[ext_resource type="Texture2D" uid="uid://cotqpgml1c4ds" path="res://Assets/Sprites/Field.png" id="3_fa00r"]
-[ext_resource type="Texture2D" uid="uid://c10jiiyvtwisp" path="res://Assets/Sprites/PauseField.png" id="4_p6unr"]
-[ext_resource type="FontFile" uid="uid://dm3n8xskwvsho" path="res://Assets/Fonts/Xolonium-Bold.ttf" id="5_02fhe"]
-[ext_resource type="Texture2D" uid="uid://dgmmhnswkgdee" path="res://Assets/Sprites/NextFigureField.png" id="6_33vnc"]
-[ext_resource type="Texture2D" uid="uid://c1lcwblcp621q" path="res://Assets/Sprites/RecordField.png" id="7_dnd73"]
-[ext_resource type="Texture2D" uid="uid://dmu8si5s4yfe4" path="res://Assets/Sprites/Start.png" id="8_8q6o3"]
-[ext_resource type="Texture2D" uid="uid://dc4o3wn6ruj4p" path="res://Assets/Sprites/SoundOff.png" id="9_g6cvv"]
-[ext_resource type="Texture2D" uid="uid://c3ehdq44ntk07" path="res://Assets/Sprites/info.png" id="10_450ih"]
+[ext_resource type="Script" uid="uid://cudvrttjqj8jb" path="res://old/Scripts/Main.gd" id="1_gsg3g"]
+[ext_resource type="AudioStream" uid="uid://bshjtfjft0lqd" path="res://old/Assets/Music/Netris_ost.mp3" id="2_t0f8q"]
+[ext_resource type="Texture2D" uid="uid://3dtnea6foxpc" path="res://old/Assets/Sprites/Field.png" id="3_pol16"]
+[ext_resource type="Texture2D" uid="uid://5inskerjg867" path="res://old/Assets/Sprites/PauseField.png" id="4_hyyde"]
+[ext_resource type="FontFile" uid="uid://drpw4svshypdc" path="res://old/Assets/Fonts/Xolonium-Bold.ttf" id="5_ke64i"]
+[ext_resource type="Texture2D" uid="uid://kjtd4xwgeu14" path="res://old/Assets/Sprites/NextFigureField.png" id="6_dhcjj"]
+[ext_resource type="Texture2D" uid="uid://bty6jpb35xqes" path="res://old/Assets/Sprites/RecordField.png" id="7_wtiax"]
+[ext_resource type="Texture2D" uid="uid://bs3q7agkf5rk5" path="res://old/Assets/Sprites/Start.png" id="8_o87qw"]
+[ext_resource type="Texture2D" uid="uid://8ytg6ovttnjv" path="res://old/Assets/Sprites/SoundOff.png" id="9_gn08d"]
+[ext_resource type="Texture2D" uid="uid://cajtf2gofnxhw" path="res://old/Assets/Sprites/info.png" id="10_ljwo8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oigue"]
 
-[node name="Main" type="Node2D"]
-script = ExtResource("1_2pg0b")
+[node name="Main" type="Node2D" unique_id=2051469166]
+script = ExtResource("1_gsg3g")
 
-[node name="GameTimer" type="Timer" parent="."]
+[node name="GameTimer" type="Timer" parent="." unique_id=450637726]
 wait_time = 0.5
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_i3wbw")
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=2131733925]
+stream = ExtResource("2_t0f8q")
 volume_db = -10.0
 autoplay = true
 
-[node name="Field" type="Sprite2D" parent="."]
+[node name="Field" type="Sprite2D" parent="." unique_id=117670873]
 clip_children = 2
 texture_filter = 1
 position = Vector2(394, 694)
 scale = Vector2(1.4, 1.4)
-texture = ExtResource("3_fa00r")
+texture = ExtResource("3_pol16")
 
-[node name="PauseField" type="Sprite2D" parent="."]
+[node name="PauseField" type="Sprite2D" parent="." unique_id=1865117776]
 visible = false
 z_index = 4
 texture_filter = 1
 position = Vector2(447, 734)
-texture = ExtResource("4_p6unr")
+texture = ExtResource("4_hyyde")
 
-[node name="InfoField" type="Sprite2D" parent="."]
+[node name="InfoField" type="Sprite2D" parent="." unique_id=2112744789]
 z_index = 5
 texture_filter = 1
 position = Vector2(1148, 604)
-texture = ExtResource("4_p6unr")
+texture = ExtResource("4_hyyde")
 
-[node name="Info" type="RichTextLabel" parent="InfoField"]
+[node name="Info" type="RichTextLabel" parent="InfoField" unique_id=1301270526]
 texture_filter = 1
 offset_left = -149.0
 offset_top = -334.0
 offset_right = 327.0
 offset_bottom = 335.0
-theme_override_fonts/normal_font = ExtResource("5_02fhe")
+theme_override_fonts/normal_font = ExtResource("5_ke64i")
 text = "Description:
 
 Figures from 3 or 4 blocks fall from above (the figure that will fall next is shown above the playing field).
@@ -72,20 +72,20 @@ Special thanks: Ufasoft, Girlname, Ldgenius, Panda
 
 Thanks to Panda for finding the combo bug. He scored 1256800 points with it."
 
-[node name="NextFigureField" type="Sprite2D" parent="."]
+[node name="NextFigureField" type="Sprite2D" parent="." unique_id=1596705665]
 texture_filter = 1
 position = Vector2(391, 101)
 scale = Vector2(1.4, 1.4)
-texture = ExtResource("6_33vnc")
+texture = ExtResource("6_dhcjj")
 
-[node name="GameOverField" type="Sprite2D" parent="."]
+[node name="GameOverField" type="Sprite2D" parent="." unique_id=1723827601]
 z_index = 4
 texture_filter = 1
 position = Vector2(394, 429)
 scale = Vector2(1.4, 1.4)
-texture = ExtResource("6_33vnc")
+texture = ExtResource("6_dhcjj")
 
-[node name="GameOver" type="Label" parent="GameOverField"]
+[node name="GameOver" type="Label" parent="GameOverField" unique_id=73589877]
 texture_filter = 1
 anchors_preset = -1
 anchor_left = -1.454
@@ -96,55 +96,55 @@ offset_left = 133.458
 offset_top = 207.401
 offset_right = 261.458
 offset_bottom = 270.401
-theme_override_fonts/font = ExtResource("5_02fhe")
+theme_override_fonts/font = ExtResource("5_ke64i")
 text = "GAME OVER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RecordField" type="Sprite2D" parent="GameOverField"]
+[node name="RecordField" type="Sprite2D" parent="GameOverField" unique_id=1626497721]
 texture_filter = 1
 position = Vector2(-1.52588e-05, 173.571)
-texture = ExtResource("7_dnd73")
+texture = ExtResource("7_wtiax")
 
-[node name="AddRecord" type="Label" parent="GameOverField/RecordField"]
+[node name="AddRecord" type="Label" parent="GameOverField/RecordField" unique_id=782392526]
 texture_filter = 1
 offset_left = -76.4286
 offset_top = -42.1424
 offset_right = 76.5714
 offset_bottom = -19.1424
-theme_override_fonts/font = ExtResource("5_02fhe")
+theme_override_fonts/font = ExtResource("5_ke64i")
 text = "Add record"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="InputName" type="LineEdit" parent="GameOverField/RecordField"]
+[node name="InputName" type="LineEdit" parent="GameOverField/RecordField" unique_id=1807444508]
 texture_filter = 1
 offset_left = -83.5714
 offset_top = -15.7138
 offset_right = 77.4286
 offset_bottom = 12.2862
-theme_override_fonts/font = ExtResource("5_02fhe")
+theme_override_fonts/font = ExtResource("5_ke64i")
 placeholder_text = "Enter name"
 
-[node name="AcceptName" type="Button" parent="GameOverField/RecordField"]
+[node name="AcceptName" type="Button" parent="GameOverField/RecordField" unique_id=722269504]
 texture_filter = 1
 offset_left = -41.4286
 offset_top = 15.7147
 offset_right = 25.5714
 offset_bottom = 43.7147
 focus_mode = 0
-theme_override_fonts/font = ExtResource("5_02fhe")
+theme_override_fonts/font = ExtResource("5_ke64i")
 text = "ok"
 flat = true
 
-[node name="ErrorField" type="Sprite2D" parent="GameOverField/RecordField"]
+[node name="ErrorField" type="Sprite2D" parent="GameOverField/RecordField" unique_id=979306205]
 z_index = 1
 texture_filter = 1
 position = Vector2(312.143, 29.2862)
 scale = Vector2(1, 0.998626)
-texture = ExtResource("7_dnd73")
+texture = ExtResource("7_wtiax")
 
-[node name="ErrorPanel" type="Panel" parent="GameOverField/RecordField/ErrorField"]
+[node name="ErrorPanel" type="Panel" parent="GameOverField/RecordField/ErrorField" unique_id=1047920212]
 texture_filter = 1
 offset_left = -94.2859
 offset_top = -46.4925
@@ -152,131 +152,131 @@ offset_right = 94.7141
 offset_bottom = 45.5075
 theme_override_styles/panel = SubResource("StyleBoxEmpty_oigue")
 
-[node name="Error" type="Label" parent="GameOverField/RecordField/ErrorField/ErrorPanel"]
+[node name="Error" type="Label" parent="GameOverField/RecordField/ErrorField/ErrorPanel" unique_id=1532451244]
 texture_filter = 1
 layout_mode = 0
 offset_left = -2.14285
 offset_right = 189.857
 offset_bottom = 49.0
-theme_override_fonts/font = ExtResource("5_02fhe")
+theme_override_fonts/font = ExtResource("5_ke64i")
 text = "This name is
 already taken!"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="EnterAnotherName" type="Button" parent="GameOverField/RecordField/ErrorField/ErrorPanel"]
+[node name="EnterAnotherName" type="Button" parent="GameOverField/RecordField/ErrorField/ErrorPanel" unique_id=1895108352]
 layout_mode = 0
 offset_left = -1.71414
 offset_top = 45.4925
 offset_right = 126.286
 offset_bottom = 93.4925
 focus_mode = 0
-theme_override_fonts/font = ExtResource("5_02fhe")
+theme_override_fonts/font = ExtResource("5_ke64i")
 text = "enter another 
 name"
 flat = true
 
-[node name="SaveName" type="Button" parent="GameOverField/RecordField/ErrorField/ErrorPanel"]
+[node name="SaveName" type="Button" parent="GameOverField/RecordField/ErrorField/ErrorPanel" unique_id=1084714099]
 layout_mode = 0
 offset_left = 130.0
 offset_top = 51.4994
 offset_right = 188.0
 offset_bottom = 95.4994
 focus_mode = 0
-theme_override_fonts/font = ExtResource("5_02fhe")
+theme_override_fonts/font = ExtResource("5_ke64i")
 text = "ok"
 flat = true
 
-[node name="HTTPRequest" type="HTTPRequest" parent="GameOverField/RecordField"]
+[node name="HTTPRequest" type="HTTPRequest" parent="GameOverField/RecordField" unique_id=1249866209]
 
-[node name="Neclor" type="LinkButton" parent="."]
+[node name="Neclor" type="LinkButton" parent="." unique_id=1359622056]
 texture_filter = 1
 offset_left = 32.0
 offset_top = 33.0
 offset_right = 100.0
 offset_bottom = 57.0
-theme_override_fonts/font = ExtResource("5_02fhe")
+theme_override_fonts/font = ExtResource("5_ke64i")
 text = "Neclor"
 underline = 1
 uri = "/index.html"
 
-[node name="PauseButton" type="TextureButton" parent="."]
+[node name="PauseButton" type="TextureButton" parent="." unique_id=2136381760]
 texture_filter = 1
 offset_left = 35.0
 offset_top = 200.0
 offset_right = 122.0
 offset_bottom = 285.0
-texture_normal = ExtResource("8_8q6o3")
+texture_normal = ExtResource("8_o87qw")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="SoundButton" type="TextureButton" parent="."]
+[node name="SoundButton" type="TextureButton" parent="." unique_id=1109194746]
 texture_filter = 1
 offset_left = 32.0
 offset_top = 339.0
 offset_right = 118.0
 offset_bottom = 422.0
-texture_normal = ExtResource("9_g6cvv")
+texture_normal = ExtResource("9_gn08d")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="InfoButton" type="TextureButton" parent="."]
+[node name="InfoButton" type="TextureButton" parent="." unique_id=67464493]
 texture_filter = 1
 offset_left = 31.0
 offset_top = 471.0
 offset_right = 116.0
 offset_bottom = 553.0
-texture_normal = ExtResource("10_450ih")
+texture_normal = ExtResource("10_ljwo8")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Score" type="Label" parent="."]
+[node name="Score" type="Label" parent="." unique_id=1484224371]
 texture_filter = 1
 offset_left = 528.0
 offset_top = 112.0
 offset_right = 708.0
 offset_bottom = 149.0
-theme_override_fonts/font = ExtResource("5_02fhe")
+theme_override_fonts/font = ExtResource("5_ke64i")
 text = "Score: 0"
 vertical_alignment = 1
 
-[node name="Combo" type="Label" parent="."]
+[node name="Combo" type="Label" parent="." unique_id=1057928756]
 texture_filter = 1
 offset_left = 525.0
 offset_top = 63.0
 offset_right = 779.0
 offset_bottom = 89.0
-theme_override_fonts/font = ExtResource("5_02fhe")
+theme_override_fonts/font = ExtResource("5_ke64i")
 text = "x1"
 vertical_alignment = 1
 
-[node name="Speed" type="Label" parent="."]
+[node name="Speed" type="Label" parent="." unique_id=1181718331]
 texture_filter = 1
 offset_left = 640.0
 offset_top = 209.0
 offset_right = 852.0
 offset_bottom = 235.0
-theme_override_fonts/font = ExtResource("5_02fhe")
+theme_override_fonts/font = ExtResource("5_ke64i")
 text = "Speed: 2"
 vertical_alignment = 1
 
-[node name="Level" type="Label" parent="."]
+[node name="Level" type="Label" parent="." unique_id=196817320]
 texture_filter = 1
 offset_left = 639.0
 offset_top = 264.0
 offset_right = 885.0
 offset_bottom = 290.0
-theme_override_fonts/font = ExtResource("5_02fhe")
+theme_override_fonts/font = ExtResource("5_ke64i")
 text = "Level: 0"
 vertical_alignment = 1
 
-[node name="NumberLines" type="Label" parent="."]
+[node name="NumberLines" type="Label" parent="." unique_id=1279662741]
 texture_filter = 1
 offset_left = 637.0
 offset_top = 309.0
 offset_right = 870.0
 offset_bottom = 335.0
-theme_override_fonts/font = ExtResource("5_02fhe")
+theme_override_fonts/font = ExtResource("5_ke64i")
 text = "Lines: 0"
 vertical_alignment = 1
 
