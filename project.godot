@@ -27,8 +27,7 @@ gdscript/warnings/integer_division=0
 window/size/viewport_width=360
 window/size/viewport_height=640
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
-window/handheld/orientation=6
+window/handheld/orientation=5
 
 [dotnet]
 
@@ -37,6 +36,7 @@ project/assembly_name="Netris"
 [file_customization]
 
 folder_colors={
+"res://assets/": "yellow",
 "res://game/": "blue",
 "res://game/logic/figure/figures/": "yellow",
 "res://main/": "red",

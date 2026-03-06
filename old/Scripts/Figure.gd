@@ -1,5 +1,5 @@
 extends Node
-class_name Figure
+class_name Figure_old
 
 var top_border
 var bottom_border

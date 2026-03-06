@@ -1,7 +1,25 @@
 [gd_scene format=3 uid="uid://vsedpuntxk72"]
 
-[node name="GameRoot" type="Node" unique_id=473413612]
+[ext_resource type="Script" uid="uid://co0r7ch0ud7ts" path="res://game/game_root.gd" id="1_hup1c"]
+[ext_resource type="Texture2D" uid="uid://d4h8vju56gliv" path="res://assets/block.svg" id="2_clt6a"]
 
-[node name="Node2D" type="Node2D" parent="." unique_id=1958028611]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2suya"]
+texture = ExtResource("2_clt6a")
+0:0/0 = 0
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Node2D" unique_id=1727803148]
+[sub_resource type="TileSet" id="TileSet_clt6a"]
+sources/1 = SubResource("TileSetAtlasSource_2suya")
+
+[node name="GameRoot" type="Node" unique_id=1434831983]
+script = ExtResource("1_hup1c")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1727803148]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_clt6a")
+occlusion_enabled = false
+collision_enabled = false
+navigation_enabled = false
+
+[node name="Sprite2D" type="Sprite2D" parent="TileMapLayer" unique_id=1637708417]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=179941422]

@@ -341,12 +341,7 @@ func update_level(number_filled_lines):
 	$Level.text = "Level: " + str(level)
 
 func update_score(number_filled_lines):
-	var new_points = 0
 
-	for i in number_filled_lines:
-		new_points = (new_points * 2 + 100)
-	new_points *= combo_counter
-	score += new_points
 
 	$Score.text = "Score: " + str(score)
 

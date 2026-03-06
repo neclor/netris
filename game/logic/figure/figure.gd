@@ -28,6 +28,7 @@ enum Rotation {
 	CLOCKWISE,
 	COUNTERCLOCKWISE,
 	ROTATE180,
+	MAX
 }
 
 const DATA: Dictionary[Type, FigureData] = {
@@ -76,7 +77,6 @@ func rotate(rotation: Rotation) -> void:
 
 func get_block_positions() -> Array[Vector2i]:
 	var blocks: Array[Vector2i] = DATA[type].blocks.duplicate()
-
 	match type:
 		Type.D, Type.O: pass
 		Type.E, Type.Y, Type.I, Type.S, Type.Z:
@@ -89,11 +89,7 @@ func get_block_positions() -> Array[Vector2i]:
 				Direction.RIGHT: _rotate_blocks(blocks, Rotation.CLOCKWISE)
 				Direction.DOWN: _rotate_blocks(blocks, Rotation.ROTATE180)
 				_: pass
-
 	return blocks
-
-
-func duplicate() -> Figure: return Figure.new(type, position, direction)
 
 
 func is_equal(figure: Figure) -> bool:
@@ -106,6 +102,9 @@ func is_equal(figure: Figure) -> bool:
 		if direction_1 == direction_2: return true
 
 	return false
+
+
+func duplicate() -> Figure: return Figure.new(type, position, direction)
 
 
 func _rotate_blocks(blocks: Array[Vector2i], rotation: Rotation) -> Array[Vector2i]:
