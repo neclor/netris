@@ -31,18 +31,18 @@ enum Rotation {
 	MAX
 }
 
-const DATA: Dictionary[Type, FigureData] = {
-	Type.D: preload("res://game/logic/figure/figures/d.tres"),
-	Type.E: preload("res://game/logic/figure/figures/e.tres"),
-	Type.Y: preload("res://game/logic/figure/figures/y.tres"),
-	Type.R: preload("res://game/logic/figure/figures/r.tres"),
-	Type.I: preload("res://game/logic/figure/figures/i.tres"),
-	Type.O: preload("res://game/logic/figure/figures/o.tres"),
-	Type.T: preload("res://game/logic/figure/figures/t.tres"),
-	Type.J: preload("res://game/logic/figure/figures/j.tres"),
-	Type.L: preload("res://game/logic/figure/figures/l.tres"),
-	Type.S: preload("res://game/logic/figure/figures/s.tres"),
-	Type.Z: preload("res://game/logic/figure/figures/z.tres"),
+const DATA: Dictionary[Type, Array] = {
+	Type.D: [Vector2i(0, 0)],
+	Type.E: [Vector2i(0, 0), Vector2i(1, 0)],
+	Type.Y: [Vector2i(-1, 0), Vector2i(0, 0), Vector2i(1, 0)],
+	Type.R: [Vector2i(0, -1), Vector2i(0, 0), Vector2i(1, 0)],
+	Type.I: [Vector2i(-1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0)],
+	Type.O: [Vector2i(0, 0), Vector2i(0, -1), Vector2i(1, -1), Vector2i(1, 0)],
+	Type.T: [Vector2i(-1, 0), Vector2i(0, 0), Vector2i(0, -1), Vector2i(1, 0)],
+	Type.J: [Vector2i(-1, -1), Vector2i(-1, 0), Vector2i(0, 0), Vector2i(1, 0)],
+	Type.L: [Vector2i(-1, 0), Vector2i(0, 0), Vector2i(1, -1), Vector2i(1, 0)],
+	Type.S: [Vector2i(-1, 0), Vector2i(0, 0), Vector2i(-1, 0), Vector2i(1, -1)],
+	Type.Z: [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(0, 0), Vector2i(1, 0)],
 }
 
 
@@ -51,7 +51,7 @@ var position: Vector2i = Vector2i.ZERO
 var direction: Direction = Direction.UP
 
 
-func _init(new_type: Type, new_position: Vector2i = Vector2i.ZERO, new_direction: Direction  = Direction.UP) -> void:
+func _init(new_type: Type, new_position: Vector2i = Vector2i.ZERO, new_direction: Direction = Direction.UP) -> void:
 	type = new_type
 	position = new_position
 	direction = new_direction
@@ -76,7 +76,7 @@ func rotate(rotation: Rotation) -> void:
 
 
 func get_block_positions() -> Array[Vector2i]:
-	var blocks: Array[Vector2i] = DATA[type].blocks.duplicate()
+	var blocks: Array[Vector2i] = Array(DATA[type].duplicate(), Variant.Type.TYPE_VECTOR2I, "", null)
 	match type:
 		Type.D, Type.O: pass
 		Type.E, Type.Y, Type.I, Type.S, Type.Z:
@@ -104,7 +104,8 @@ func is_equal(figure: Figure) -> bool:
 	return false
 
 
-func duplicate() -> Figure: return Figure.new(type, position, direction)
+func duplicate() -> Figure: 
+	return Figure.new(type, position, direction)
 
 
 func _rotate_blocks(blocks: Array[Vector2i], rotation: Rotation) -> Array[Vector2i]:

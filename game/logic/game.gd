@@ -7,6 +7,12 @@ signal speed_changed(value: float)
 signal destroyed_line_count_changed(value: int)
 
 
+signal figure_changed
+signal next_figure_changed
+signal hold_figure_changed
+signal bonus_figure_changed
+
+
 signal bonus_figure_gained(value: int)
 
 
@@ -34,6 +40,7 @@ var _swap_allowed: bool
 
 func _init() -> void:
 	randomize()
+	init()
 
 
 func init() -> void:
@@ -45,13 +52,18 @@ func init() -> void:
 	field.clear()
 	figure_pool.refill()
 
-	current_figure = _spawn_next_figure()
+	current_figure = null
 	hold_figure = null
-	bonus_figure_place = _spawn_bonus_figure_place()
+	bonus_figure_place = null
 
 	game_over = false
 
 	_swap_allowed = true
+
+
+func start() -> void:
+	_spawn_next_figure()
+	_spawn_bonus_figure_place()
 
 
 func set_score(value: int) -> void:
@@ -82,12 +94,22 @@ func step() -> void:
 	if game_over: return
 	if try_move_figure(Figure.Direction.DOWN): return
 	_place_current_figure()
+	_update_speed()
+	_swap_allowed = true
 
 
-func try_move_figure(direction: Figure.Direction) -> bool: return _try_move_figure(current_figure, direction)
+func try_move_figure(direction: Figure.Direction) -> bool: 
+	if _try_move_figure(current_figure, direction):
+		figure_changed.emit()
+		return true
+	return false
 
 
-func try_rotate_figure(rotation: Figure.Rotation) -> bool: return _try_rotate_figure(current_figure, rotation)
+func try_rotate_figure(rotation: Figure.Rotation) -> bool: 
+	if _try_rotate_figure(current_figure, rotation):
+		figure_changed.emit()
+		return true
+	return false
 
 
 func drop_figure() -> void: 
@@ -99,8 +121,9 @@ func try_swap_figure() -> bool:
 	if not _swap_allowed: return false
 	if (hold_figure == null):
 		hold_figure = current_figure
-		current_figure = _spawn_next_figure()
 		_swap_allowed = false
+		_spawn_next_figure()
+		hold_figure_changed.emit()
 		return true
 	hold_figure.position = current_figure.position
 	if not field.check_figure_collides(hold_figure) or _try_rotate_figure(hold_figure):
@@ -108,6 +131,8 @@ func try_swap_figure() -> bool:
 		current_figure = hold_figure
 		hold_figure = temp
 		_swap_allowed = false
+		figure_changed.emit()
+		hold_figure_changed.emit()
 		return true
 	return false
 
@@ -163,9 +188,12 @@ func _place_current_figure() -> void:
 	_check_bonus_figure_place()
 	var line_count: int = field.destroy_lines()
 	_update_score(line_count)
-	combo_counter = 1 if line_count == 0 else combo_counter + 1
+	if line_count != 0:
+		combo_counter += 1
+		_spawn_bonus_figure_place()
+	else:
+		combo_counter = 1
 	destroyed_line_count += line_count
-	_update_speed()
 
 
 func _check_bonus_figure_place() -> void:
@@ -173,7 +201,7 @@ func _check_bonus_figure_place() -> void:
 
 	var new_score: int = 50
 	for block in bonus_figure_place.get_block_positions():
-		if field.get_block(block) != null and field.get_block(block).figure_type == bonus_figure_place.type:
+		if field.get_block(block) != Field.EMPTY_VALUE and (field.get_block(block) as Figure.Type) == bonus_figure_place.type:
 			new_score = 100
 
 	if bonus_figure_place.is_equal(current_figure):
@@ -181,17 +209,19 @@ func _check_bonus_figure_place() -> void:
 
 	new_score *= combo_counter
 	score += new_score
-	bonus_figure_place = _spawn_bonus_figure_place()
 	bonus_figure_gained.emit(new_score)
 
-
-func _spawn_next_figure() -> Figure:
-	var figure: Figure = figure_pool.pop_next_figure()
-	figure.position = field.spawn_position
-	return figure
+	_spawn_bonus_figure_place()
 
 
-func _spawn_bonus_figure_place() -> Figure:
+func _spawn_next_figure() -> void:
+	current_figure = figure_pool.pop_next_figure()
+	current_figure.position = field.spawn_position
+	figure_changed.emit()
+	next_figure_changed.emit()
+
+
+func _spawn_bonus_figure_place() -> void:
 	var type: Figure.Type = randi_range(0, Figure.Type.MAX - 1) as Figure.Type
 	var direction: Figure.Direction = randi_range(0, Figure.Direction.MAX - 1) as Figure.Direction
 	var figure: Figure = Figure.new(type, field.spawn_position, direction)
@@ -199,7 +229,8 @@ func _spawn_bonus_figure_place() -> Figure:
 	var move_direction: Figure.Direction = Figure.Direction.LEFT if position_x <= figure.position.x else Figure.Direction.RIGHT
 	while figure.position.x != position_x and _try_move_figure(figure, move_direction): pass
 	_drop_figure(figure)
-	return figure
+	bonus_figure_place = figure
+	bonus_figure_changed.emit()
 
 
 func _update_score(line_count: int) -> void:

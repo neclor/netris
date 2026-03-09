@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://2en5wvpfpy2g"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_30dkx"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wq0cr"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pbkx4"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_y2odj"]
+
+[node name="Hud" type="CanvasLayer" unique_id=1806565842]
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1427644918]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1696018543]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="PauseButton" type="TextureButton" parent="MarginContainer/HBoxContainer" unique_id=1400009492]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = SubResource("PlaceholderTexture2D_30dkx")
+stretch_mode = 5
+
+[node name="RotateCounterButton" type="TextureButton" parent="MarginContainer/HBoxContainer" unique_id=822866948]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = SubResource("PlaceholderTexture2D_wq0cr")
+stretch_mode = 5
+
+[node name="RotateButton" type="TextureButton" parent="MarginContainer/HBoxContainer" unique_id=76329365]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = SubResource("PlaceholderTexture2D_pbkx4")
+stretch_mode = 5
+
+[node name="SwapButton" type="TextureButton" parent="MarginContainer/HBoxContainer" unique_id=1349208221]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = SubResource("PlaceholderTexture2D_y2odj")
+stretch_mode = 5
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=1075180677]
+unique_name_in_owner = true
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 348.0
+offset_bottom = 33.0
+text = "Score: 100"
+
+[node name="ComboLabel" type="Label" parent="." unique_id=1580354462]
+unique_name_in_owner = true
+offset_left = 243.0
+offset_top = 6.0
+offset_right = 571.0
+offset_bottom = 29.0
+text = "x1"
+
+[node name="SpeedLabel" type="Label" parent="." unique_id=1294067343]
+unique_name_in_owner = true
+offset_left = 161.0
+offset_top = 12.0
+offset_right = 489.0
+offset_bottom = 35.0
+text = "2"

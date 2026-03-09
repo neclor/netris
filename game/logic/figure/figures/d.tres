@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="FigureData" format=3 uid="uid://bryb8rrxy4d18"]
-
-[ext_resource type="Script" uid="uid://c5fry06bk4cwi" path="res://game/logic/figure/figure_data.gd" id="1_gkco1"]
-
-[resource]
-script = ExtResource("1_gkco1")
-blocks = Array[Vector2i]([Vector2i(0, 0)])
-color = Color(0, 0.5019608, 1, 1)
-metadata/_custom_type_script = "uid://c5fry06bk4cwi"
