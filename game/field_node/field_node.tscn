@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://bjneceia2f0g2"]
 
-[ext_resource type="Script" uid="uid://tl8lyiybj16a" path="res://game/field_node_2d/field_node_2d.gd" id="1_s58r4"]
-[ext_resource type="Texture2D" uid="uid://brb7x2rc0aoh1" path="res://assets/sprites/field_background_tileset.png" id="1_tar8h"]
+[ext_resource type="Script" uid="uid://tl8lyiybj16a" path="res://game/field_node/field_node.gd" id="1_s58r4"]
+[ext_resource type="Texture2D" uid="uid://lo4ly2c7aid3" path="res://assets/sprites/field_background_tileset.png" id="1_tar8h"]
 [ext_resource type="TileSet" uid="uid://b4o1ximg1kdwc" path="res://resources/block_tile_set.tres" id="2_s58r4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h7acg"]

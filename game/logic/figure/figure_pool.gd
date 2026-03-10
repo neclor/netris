@@ -8,8 +8,8 @@ func _init() -> void:
 	refill()
 
 
-func get_next_figure_type() -> Figure.Type: 
-	return _pool.back()
+func get_next_figure() -> Figure: 
+	return Figure.new(_pool.back())
 
 
 func pop_next_figure() -> Figure:

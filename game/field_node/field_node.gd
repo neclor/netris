@@ -1,4 +1,4 @@
-class_name FieldNode2D extends Node2D
+class_name FieldNode extends Node2D
 
 
 const ADDITIONAL_LINES: int = 2
@@ -9,8 +9,8 @@ const _HOLD_POSITION: Vector2i = Vector2i(2, -2)
 const _NEXT_POSITION: Vector2i = Vector2i(8, -2)
 
 
-var field: Field:
-	set = set_field
+var _field: Field
+var _pos_diff: Vector2i = Vector2i.ZERO
 
 
 @onready var field_tile_map_layer: TileMapLayer = %FieldTileMapLayer
@@ -20,31 +20,25 @@ var field: Field:
 @onready var hold_figure_tile_map_layer: TileMapLayer = %HoldFigureTileMapLayer
 
 
-var _pos_diff: Vector2i = Vector2i.ZERO
-
-
-func set_field(value: Field) -> void:
-	if field != null:
-		field.field_changed.disconnect(draw_field)
-	field = value
-	if field == null: return
-	_pos_diff = Vector2i(0, field.top_limit - ADDITIONAL_LINES)
+func init(field: Field) -> void:
+	_field = field
 	field.field_changed.connect(draw_field)
+	_pos_diff = Vector2i(0, field.top_limit - ADDITIONAL_LINES)
 
 
 func draw_field() -> void:
-	if field == null: return
+	if _field == null: return
 	field_tile_map_layer.clear()
-	for y: int in field.size.y - _pos_diff.y:
-		for x: int in field.size.x:
+	for y: int in _field.size.y - _pos_diff.y:
+		for x: int in _field.size.x:
 			var pos: Vector2i = Vector2i(x, y)
 			var field_pos: Vector2i = pos + _pos_diff
-			if field.is_empty(field_pos): continue
-			field_tile_map_layer.set_cell(pos, _SOURCE_ID, _get_block_coords(field.get_block(field_pos) as Figure.Type))
+			if _field.is_empty(field_pos): continue
+			field_tile_map_layer.set_cell(pos, _SOURCE_ID, _get_block_coords(_field.get_block(field_pos) as Figure.Type))
 
 
 func draw_figure(figure: Figure, ghost_figure: Figure) -> void:
-	if field == null: return
+	if _field == null: return
 	figure_tile_map_layer.clear()
 	if figure == null: return
 	for pos: Vector2i in ghost_figure.get_block_positions():
@@ -53,28 +47,26 @@ func draw_figure(figure: Figure, ghost_figure: Figure) -> void:
 		figure_tile_map_layer.set_cell(pos - _pos_diff, _SOURCE_ID, _get_block_coords(figure.type))
 
 
-func draw_bonus_figure(bonus_figure: Figure) -> void:
-	if field == null: return
+func draw_bonus_figure(figure: Figure) -> void:
+	if _field == null: return
 	bonus_figure_tile_map_layer.clear()
-	if bonus_figure == null: return
-	for pos: Vector2i in bonus_figure.get_block_positions():
-		figure_tile_map_layer.set_cell(pos - _pos_diff, _SOURCE_ID, _get_bonus_block_coords(bonus_figure.type))
+	if figure == null: return
+	for pos: Vector2i in figure.get_block_positions():
+		figure_tile_map_layer.set_cell(pos - _pos_diff, _SOURCE_ID, _get_bonus_block_coords(figure.type))
 
 
-func draw_next_figure(figure_type: int) -> void:
+func draw_next_figure(figure: Figure) -> void:
 	next_figure_tile_map_layer.clear()
-	if figure_type == -1: return
-	var type: Figure.Type = figure_type as Figure.Type
-	for pos: Vector2i in Figure.DATA[type]:
-		next_figure_tile_map_layer.set_cell(pos + _NEXT_POSITION, _SOURCE_ID, _get_block_coords(type))
+	if figure == null: return
+	for pos: Vector2i in Figure.DATA[figure.type]:
+		next_figure_tile_map_layer.set_cell(pos + _NEXT_POSITION, _SOURCE_ID, _get_block_coords(figure.type))
 
 
-func draw_hold_figure(figure_type: int) -> void:
+func draw_hold_figure(figure: Figure) -> void:
 	hold_figure_tile_map_layer.clear()
-	if figure_type == -1: return
-	var type: Figure.Type = figure_type as Figure.Type
-	for pos: Vector2i in Figure.DATA[type]:
-		next_figure_tile_map_layer.set_cell(pos + _HOLD_POSITION, _SOURCE_ID, _get_block_coords(type))
+	if figure == null: return
+	for pos: Vector2i in Figure.DATA[figure.type]:
+		next_figure_tile_map_layer.set_cell(pos + _HOLD_POSITION, _SOURCE_ID, _get_block_coords(figure.type))
 
 
 func _get_block_coords(type: Figure.Type) -> Vector2i:

@@ -16,13 +16,13 @@ signal bonus_figure_changed
 signal bonus_figure_gained(value: int)
 
 
-var score: int:
+var score: int = 0:
 	set = set_score
-var combo_counter: int:
+var combo_counter: int = 1:
 	set = set_combo_counter
-var speed: float:
+var speed: float = 2:
 	set = set_speed
-var destroyed_line_count: int:
+var destroyed_line_count: int = 0:
 	set = set_destroyed_line_count
 
 

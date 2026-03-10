@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://co0r7ch0ud7ts" path="res://game/game_root.gd" id="1_hup1c"]
 [ext_resource type="PackedScene" uid="uid://2en5wvpfpy2g" path="res://game/hud/hud.tscn" id="2_2suya"]
-[ext_resource type="PackedScene" uid="uid://bjneceia2f0g2" path="res://game/field_node_2d/field_node_2d.tscn" id="2_clt6a"]
+[ext_resource type="PackedScene" uid="uid://bjneceia2f0g2" path="res://game/field_node/field_node.tscn" id="2_clt6a"]
 
 [sub_resource type="Gradient" id="Gradient_clt6a"]
 colors = PackedColorArray(0.101960786, 0.09803922, 0.19607843, 1, 0.05490196, 0.02745098, 0.105882354, 1)
