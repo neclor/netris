@@ -41,7 +41,7 @@ const DATA: Dictionary[Type, Array] = {
 	Type.T: [Vector2i(-1, 0), Vector2i(0, 0), Vector2i(0, -1), Vector2i(1, 0)],
 	Type.J: [Vector2i(-1, -1), Vector2i(-1, 0), Vector2i(0, 0), Vector2i(1, 0)],
 	Type.L: [Vector2i(-1, 0), Vector2i(0, 0), Vector2i(1, -1), Vector2i(1, 0)],
-	Type.S: [Vector2i(-1, 0), Vector2i(0, 0), Vector2i(-1, 0), Vector2i(1, -1)],
+	Type.S: [Vector2i(-1, 0), Vector2i(0, 0), Vector2i(0, -1), Vector2i(1, -1)],
 	Type.Z: [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(0, 0), Vector2i(1, 0)],
 }
 
@@ -72,7 +72,7 @@ func rotate(rotation: Rotation) -> void:
 		Rotation.CLOCKWISE: i = 1
 		Rotation.COUNTERCLOCKWISE: i = -1
 		Rotation.ROTATE180: i = 2
-	direction = (Direction .MAX + direction + i) % Direction.MAX as Direction
+	direction = (Direction.MAX + direction + i) % Direction.MAX as Direction
 
 
 func get_block_positions() -> Array[Vector2i]:
@@ -89,6 +89,8 @@ func get_block_positions() -> Array[Vector2i]:
 				Direction.RIGHT: _rotate_blocks(blocks, Rotation.CLOCKWISE)
 				Direction.DOWN: _rotate_blocks(blocks, Rotation.ROTATE180)
 				_: pass
+	for i in blocks.size():
+		blocks[i] += position
 	return blocks
 
 
@@ -109,12 +111,13 @@ func duplicate() -> Figure:
 
 
 func _rotate_blocks(blocks: Array[Vector2i], rotation: Rotation) -> Array[Vector2i]:
-	var factor_1: int = -1 if rotation == Rotation.COUNTERCLOCKWISE else 1
-	var factor_2: int = -1 if rotation in [Rotation.COUNTERCLOCKWISE, Rotation.ROTATE180] else 1
-
+	var factor: int = -1 if rotation == Rotation.COUNTERCLOCKWISE else 1
 	for i in blocks.size():
-		var temp: int = blocks[i].x
-		blocks[i].x = -blocks[i].y * factor_1
-		blocks[i].y = temp * factor_2
+		if rotation == Rotation.ROTATE180:
+			blocks[i] *= -1
+		else:
+			var temp: int = blocks[i].x
+			blocks[i].x = -blocks[i].y * factor
+			blocks[i].y = temp * factor
 
 	return blocks

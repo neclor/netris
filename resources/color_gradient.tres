@@ -1,0 +1,6 @@
+[gd_resource type="Gradient" format=3 uid="uid://bablawxfix2pk"]
+
+[resource]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.09, 0.18, 0.27, 0.36, 0.45, 0.54, 0.63, 0.72, 0.81, 0.9)
+colors = PackedColorArray(0, 0.5019608, 1, 1, 1, 0, 0.5019608, 1, 0, 1, 0.5019608, 1, 0.5019608, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0.5019608, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1)

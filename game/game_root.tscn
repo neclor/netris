@@ -3,48 +3,38 @@
 [ext_resource type="Script" uid="uid://co0r7ch0ud7ts" path="res://game/game_root.gd" id="1_hup1c"]
 [ext_resource type="PackedScene" uid="uid://2en5wvpfpy2g" path="res://game/hud/hud.tscn" id="2_2suya"]
 [ext_resource type="PackedScene" uid="uid://bjneceia2f0g2" path="res://game/field_node/field_node.tscn" id="2_clt6a"]
+[ext_resource type="AudioStream" uid="uid://mdfeexwgjyhb" path="res://assets/music/netris_remix.mp3" id="2_h7acg"]
 
-[sub_resource type="Gradient" id="Gradient_clt6a"]
-colors = PackedColorArray(0.101960786, 0.09803922, 0.19607843, 1, 0.05490196, 0.02745098, 0.105882354, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_2suya"]
-gradient = SubResource("Gradient_clt6a")
-width = 360
-height = 640
-fill_from = Vector2(0.5, 0)
-fill_to = Vector2(0.5, 1)
-
-[node name="GameRoot" type="Node" unique_id=1434831983]
+[node name="GameRoot" type="Node2D" unique_id=411566690]
 script = ExtResource("1_hup1c")
-metadata/_edit_vertical_guides_ = [50.0, 310.0]
+metadata/_edit_vertical_guides_ = [70.0, 290.0]
 
 [node name="Timer" type="Timer" parent="." unique_id=1664465653]
 unique_name_in_owner = true
-autostart = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=460654501]
 unique_name_in_owner = true
-volume_db = -22.303
-pitch_scale = 1.7
-
-[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=1551027387]
-layer = -1
-
-[node name="TextureRect" type="TextureRect" parent="BackgroundLayer" unique_id=1554743116]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture2D_2suya")
-metadata/_edit_lock_ = true
+stream = ExtResource("2_h7acg")
 
 [node name="Hud" parent="." unique_id=1806565842 instance=ExtResource("2_2suya")]
 
-[node name="FieldNode2D" parent="." unique_id=1936814797 instance=ExtResource("2_clt6a")]
-position = Vector2(63, 97)
+[node name="CenterContainer" parent="Hud" index="1" unique_id=1531144858]
+visible = true
+
+[node name="FieldNode" parent="." unique_id=1936814797 instance=ExtResource("2_clt6a")]
+position = Vector2(74, 95)
+scale = Vector2(1.1, 1.1)
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1364170155]
+position = Vector2(180, 320)
+limit_enabled = false
 metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Hud/MarginContainer/ButtonContainer/BackButton" to="." method="_on_back"]
+[connection signal="pressed" from="Hud/MarginContainer/ButtonContainer/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="Hud/MarginContainer/ButtonContainer/SwapButton" to="." method="_on_swap_button_pressed"]
+[connection signal="button_down" from="Hud/CenterContainer/GameOverContainer/RestartButton" to="." method="_on_start"]
 
 [editable path="Hud"]

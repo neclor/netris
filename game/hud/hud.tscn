@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://2en5wvpfpy2g"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_30dkx"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wq0cr"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pbkx4"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_y2odj"]
+[ext_resource type="Script" uid="uid://ci8ykyiq12fay" path="res://game/hud/score_label.gd" id="1_5b4yy"]
+[ext_resource type="Texture2D" uid="uid://c0apc1x2sdf13" path="res://assets/sprites/buttons/pause.png" id="1_pbkx4"]
+[ext_resource type="Script" uid="uid://clgg8wom5uvp3" path="res://game/hud/combo_label.gd" id="2_1bgfu"]
+[ext_resource type="Texture2D" uid="uid://dkl4h5aw6ffn0" path="res://assets/sprites/buttons/pause_pressed.png" id="2_5jl3k"]
+[ext_resource type="Texture2D" uid="uid://cpcpbyjocy1kl" path="res://assets/sprites/buttons/back.png" id="2_qiffg"]
+[ext_resource type="Texture2D" uid="uid://ck86jvaf7ibji" path="res://assets/sprites/buttons/swap.png" id="2_y2odj"]
+[ext_resource type="Texture2D" uid="uid://bhx4ik5pihwjp" path="res://assets/sprites/buttons/back_pressed.png" id="3_1bgfu"]
+[ext_resource type="Texture2D" uid="uid://w7qbdvwuej0a" path="res://assets/sprites/buttons/swap_pressed.png" id="4_xy3hn"]
+[ext_resource type="Texture2D" uid="uid://bg65i32cpw1yh" path="res://assets/sprites/buttons/restart.png" id="9_1bgfu"]
 
 [node name="Hud" type="CanvasLayer" unique_id=1806565842]
 
@@ -21,59 +23,85 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1696018543]
-custom_minimum_size = Vector2(0, 32)
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1167137559]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1075180677]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Score: 0"
+script = ExtResource("1_5b4yy")
+
+[node name="ComboLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1580354462]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+text = "x1"
+script = ExtResource("2_1bgfu")
+
+[node name="ButtonContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1696018543]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_constants/separation = 64
+alignment = 1
 
-[node name="PauseButton" type="TextureButton" parent="MarginContainer/HBoxContainer" unique_id=1400009492]
+[node name="BackButton" type="TextureButton" parent="MarginContainer/ButtonContainer" unique_id=4604041]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = SubResource("PlaceholderTexture2D_30dkx")
+texture_normal = ExtResource("2_qiffg")
+texture_pressed = ExtResource("3_1bgfu")
 stretch_mode = 5
 
-[node name="RotateCounterButton" type="TextureButton" parent="MarginContainer/HBoxContainer" unique_id=822866948]
+[node name="PauseButton" type="TextureButton" parent="MarginContainer/ButtonContainer" unique_id=1400009492]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = SubResource("PlaceholderTexture2D_wq0cr")
+toggle_mode = true
+texture_normal = ExtResource("1_pbkx4")
+texture_pressed = ExtResource("2_5jl3k")
 stretch_mode = 5
 
-[node name="RotateButton" type="TextureButton" parent="MarginContainer/HBoxContainer" unique_id=76329365]
+[node name="SwapButton" type="TextureButton" parent="MarginContainer/ButtonContainer" unique_id=1349208221]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = SubResource("PlaceholderTexture2D_pbkx4")
+toggle_mode = true
+texture_normal = ExtResource("2_y2odj")
+texture_pressed = ExtResource("4_xy3hn")
 stretch_mode = 5
 
-[node name="SwapButton" type="TextureButton" parent="MarginContainer/HBoxContainer" unique_id=1349208221]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1531144858]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GameOverContainer" type="VBoxContainer" parent="CenterContainer" unique_id=841241113]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = SubResource("PlaceholderTexture2D_y2odj")
+
+[node name="Label" type="Label" parent="CenterContainer/GameOverContainer" unique_id=1155367255]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="TextureButton" parent="CenterContainer/GameOverContainer" unique_id=1644003692]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("9_1bgfu")
+texture_pressed = ExtResource("9_1bgfu")
 stretch_mode = 5
-
-[node name="ScoreLabel" type="Label" parent="." unique_id=1075180677]
-unique_name_in_owner = true
-offset_left = 20.0
-offset_top = 10.0
-offset_right = 348.0
-offset_bottom = 33.0
-text = "Score: 100"
-
-[node name="ComboLabel" type="Label" parent="." unique_id=1580354462]
-unique_name_in_owner = true
-offset_left = 243.0
-offset_top = 6.0
-offset_right = 571.0
-offset_bottom = 29.0
-text = "x1"
-
-[node name="SpeedLabel" type="Label" parent="." unique_id=1294067343]
-unique_name_in_owner = true
-offset_left = 161.0
-offset_top = 12.0
-offset_right = 489.0
-offset_bottom = 35.0
-text = "2"

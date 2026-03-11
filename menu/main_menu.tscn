@@ -1,18 +1,17 @@
 [gd_scene format=3 uid="uid://bxyf2dfq8woxc"]
 
-[ext_resource type="Texture2D" uid="uid://bvk8uhc8hbcqr" path="res://assets/block.svg" id="1_chmv6"]
+[ext_resource type="Texture2D" uid="uid://oe2ivuu2cj1w" path="res://assets/sprites/block.png" id="1_f5okj"]
+[ext_resource type="Gradient" uid="uid://bablawxfix2pk" path="res://resources/color_gradient.tres" id="2_o5w3e"]
+[ext_resource type="Texture2D" uid="uid://d0bau8xi6r0ou" path="res://assets/sprites/buttons/play.png" id="3_1x3cv"]
+[ext_resource type="Script" uid="uid://bi11x3yq0mkua" path="res://menu/name_text_edit.gd" id="3_jc45y"]
+[ext_resource type="Texture2D" uid="uid://b5e8glcabes0w" path="res://assets/sprites/buttons/leaderboard.png" id="4_jc45y"]
 
-[sub_resource type="Gradient" id="Gradient_f5okj"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.17532468, 0.36363637, 0.5519481, 0.72077924, 0.8116883)
-colors = PackedColorArray(0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1)
-
-[node name="MainMenu" type="Node" unique_id=2141217468]
+[node name="MainMenu" type="CanvasLayer" unique_id=1677243929]
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1524836788]
 position = Vector2(180, -32)
 amount = 64
-texture = ExtResource("1_chmv6")
+texture = ExtResource("1_f5okj")
 lifetime = 16.0
 emission_shape = 3
 emission_rect_extents = Vector2(180, 1)
@@ -24,11 +23,14 @@ initial_velocity_max = 100.0
 angular_velocity_min = -30.0
 angular_velocity_max = 30.0
 angle_max = 360.0
-scale_amount_min = 0.05
-scale_amount_max = 0.1
-color_initial_ramp = SubResource("Gradient_f5okj")
+scale_amount_max = 2.0
+color_initial_ramp = ExtResource("2_o5w3e")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2109111787]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2140578848]
+position = Vector2(180, 320)
+limit_enabled = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1330467028]
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=1051345076]
 layout_mode = 3
@@ -56,11 +58,32 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/CenterContainer" unique_id=754419219]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/CenterContainer/VBoxContainer" unique_id=2105771117]
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/CenterContainer/VBoxContainer" unique_id=1289067498]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Netris Remake"
 
-[node name="PlayButton" type="Button" parent="CanvasLayer/Control/MarginContainer/CenterContainer/VBoxContainer" unique_id=1949170306]
+[node name="NameTextEdit" type="TextEdit" parent="CanvasLayer/Control/MarginContainer/CenterContainer/VBoxContainer" unique_id=1241778798]
+custom_minimum_size = Vector2(170, 32)
 layout_mode = 2
+size_flags_horizontal = 4
+placeholder_text = "Write your nickname"
+script = ExtResource("3_jc45y")
 
-[node name="LeaderboardButton" type="Button" parent="CanvasLayer/Control/MarginContainer/CenterContainer/VBoxContainer" unique_id=718589973]
+[node name="PlayButton" type="TextureButton" parent="CanvasLayer/Control/MarginContainer/CenterContainer/VBoxContainer" unique_id=1815947458]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_1x3cv")
+stretch_mode = 5
+
+[node name="LeaderboardButton" type="TextureButton" parent="CanvasLayer/Control/MarginContainer/CenterContainer/VBoxContainer" unique_id=1089496393]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("4_jc45y")
+stretch_mode = 5
+
+[connection signal="text_changed" from="CanvasLayer/Control/MarginContainer/CenterContainer/VBoxContainer/NameTextEdit" to="CanvasLayer/Control/MarginContainer/CenterContainer/VBoxContainer/NameTextEdit" method="_on_text_changed"]

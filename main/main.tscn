@@ -1,3 +1,37 @@
 [gd_scene format=3 uid="uid://vcpsh1tex135"]
 
+[ext_resource type="PackedScene" uid="uid://bxyf2dfq8woxc" path="res://menu/main_menu.tscn" id="1_53q0u"]
+[ext_resource type="Script" uid="uid://bxuwjfvfx1vn1" path="res://main/main.gd" id="1_xwkvk"]
+[ext_resource type="PackedScene" uid="uid://vsedpuntxk72" path="res://game/game_root.tscn" id="2_pjrb6"]
+
+[sub_resource type="Gradient" id="Gradient_clt6a"]
+colors = PackedColorArray(0.101960786, 0.09803922, 0.19607843, 1, 0.05490196, 0.02745098, 0.105882354, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4hihk"]
+gradient = SubResource("Gradient_clt6a")
+width = 360
+height = 640
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
 [node name="Main" type="Node" unique_id=306209265]
+script = ExtResource("1_xwkvk")
+
+[node name="MainMenu" parent="." unique_id=1978036924 instance=ExtResource("1_53q0u")]
+
+[node name="GameRoot" parent="." unique_id=411566690 instance=ExtResource("2_pjrb6")]
+visible = false
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=830932695]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundLayer" unique_id=869864958]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_4hihk")
+metadata/_edit_lock_ = true
+
+[editable path="MainMenu"]

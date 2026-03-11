@@ -46,21 +46,20 @@ func place_figure(figure: Figure) -> void:
 
 func destroy_lines() -> int:
 	var line_count: int = 0
-	for row in range(_field.size() - 1, -1, -1):
-		if _field[row].has(EMPTY_VALUE): continue
+	for i in _field.size():
+		if _field[i].has(EMPTY_VALUE): continue
 		line_count += 1
-		_field.remove_at(row)
+		_field.remove_at(i)
 		_field.push_front([])
 		_field[0].resize(size.x)
+		_field[0].fill(EMPTY_VALUE)
 	if line_count != 0: field_changed.emit()
 	return line_count
 
 
 func check_figure_collides(figure: Figure) -> bool:
 	for block in figure.get_block_positions():
-		if block.x < 0 or size.x <= block.x or \
-			size.y <= block.y or \
-			_field[block.y][block.x] != EMPTY_VALUE: return true
+		if block.x < 0 or size.x <= block.x or size.y <= block.y or _field[block.y][block.x] != EMPTY_VALUE: return true
 	return false
 
 

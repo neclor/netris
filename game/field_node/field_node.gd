@@ -5,8 +5,8 @@ const ADDITIONAL_LINES: int = 2
 const _SOURCE_ID: int = 0
 
 
-const _HOLD_POSITION: Vector2i = Vector2i(2, -2)
-const _NEXT_POSITION: Vector2i = Vector2i(8, -2)
+const _NEXT_POSITION: Vector2i = Vector2i(2, -2)
+const _HOLD_POSITION: Vector2i = Vector2i(8, -2)
 
 
 var _field: Field
@@ -52,7 +52,7 @@ func draw_bonus_figure(figure: Figure) -> void:
 	bonus_figure_tile_map_layer.clear()
 	if figure == null: return
 	for pos: Vector2i in figure.get_block_positions():
-		figure_tile_map_layer.set_cell(pos - _pos_diff, _SOURCE_ID, _get_bonus_block_coords(figure.type))
+		bonus_figure_tile_map_layer.set_cell(pos - _pos_diff, _SOURCE_ID, _get_bonus_block_coords(figure.type))
 
 
 func draw_next_figure(figure: Figure) -> void:
@@ -64,9 +64,10 @@ func draw_next_figure(figure: Figure) -> void:
 
 func draw_hold_figure(figure: Figure) -> void:
 	hold_figure_tile_map_layer.clear()
-	if figure == null: return
+	if figure == null:
+		return
 	for pos: Vector2i in Figure.DATA[figure.type]:
-		next_figure_tile_map_layer.set_cell(pos + _HOLD_POSITION, _SOURCE_ID, _get_block_coords(figure.type))
+		hold_figure_tile_map_layer.set_cell(pos + _HOLD_POSITION, _SOURCE_ID, _get_block_coords(figure.type))
 
 
 func _get_block_coords(type: Figure.Type) -> Vector2i:
