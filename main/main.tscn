@@ -15,12 +15,8 @@ fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
 [node name="Main" type="Node" unique_id=306209265]
+process_mode = 3
 script = ExtResource("1_xwkvk")
-
-[node name="MainMenu" parent="." unique_id=1978036924 instance=ExtResource("1_53q0u")]
-
-[node name="GameRoot" parent="." unique_id=411566690 instance=ExtResource("2_pjrb6")]
-visible = false
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=830932695]
 layer = -1
@@ -33,5 +29,12 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_4hihk")
 metadata/_edit_lock_ = true
+
+[node name="MainMenu" parent="." unique_id=1978036924 instance=ExtResource("1_53q0u")]
+
+[node name="GameRoot" parent="." unique_id=411566690 instance=ExtResource("2_pjrb6")]
+visible = false
+
+[connection signal="back" from="GameRoot" to="." method="_on_game_root_back"]
 
 [editable path="MainMenu"]

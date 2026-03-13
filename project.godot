@@ -18,6 +18,10 @@ config/name="Netris Remake"
 run/main_scene="uid://vcpsh1tex135"
 config/features=PackedStringArray("4.6", "Mobile")
 
+[autoload]
+
+Server="*uid://d0lhgr7fkry7h"
+
 [debug]
 
 gdscript/warnings/integer_division=0
@@ -43,7 +47,7 @@ folder_colors={
 "res://main/": "red",
 "res://menu/": "green",
 "res://resources/": "teal",
-"res://save/": "orange"
+"res://services/": "orange"
 }
 
 [gui]

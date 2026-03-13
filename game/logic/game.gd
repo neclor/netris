@@ -5,11 +5,9 @@ signal score_changed(value: int)
 signal combo_counter_changed(value: int)
 signal speed_changed(value: float)
 
-
 signal current_figure_changed(figure: Figure)
 signal hold_figure_changed(figure: Figure)
 signal bonus_figure_changed(figure: Figure)
-
 
 signal swap_allowed_changed(value: bool)
 signal paused_changed(value: bool)

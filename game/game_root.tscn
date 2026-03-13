@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://mdfeexwgjyhb" path="res://assets/music/netris_remix.mp3" id="2_h7acg"]
 
 [node name="GameRoot" type="Node2D" unique_id=411566690]
+process_mode = 1
 script = ExtResource("1_hup1c")
 metadata/_edit_vertical_guides_ = [70.0, 290.0]
 
@@ -17,9 +18,6 @@ unique_name_in_owner = true
 stream = ExtResource("2_h7acg")
 
 [node name="Hud" parent="." unique_id=1806565842 instance=ExtResource("2_2suya")]
-
-[node name="CenterContainer" parent="Hud" index="1" unique_id=1531144858]
-visible = true
 
 [node name="FieldNode" parent="." unique_id=1936814797 instance=ExtResource("2_clt6a")]
 position = Vector2(74, 95)

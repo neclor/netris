@@ -1,6 +1,8 @@
 class_name GameRoot extends Node2D
 
 
+signal back
+
 
 @onready var timer: Timer = %Timer
 @onready var audio_stream_player: AudioStreamPlayer = %AudioStreamPlayer
@@ -98,7 +100,7 @@ func _on_swap_button_pressed() -> void:
 
 func _on_back() -> void:
 	_game.paused = true
-	hide_all()
+	back.emit()
 
 
 func _unhandled_input(event: InputEvent) -> void:
