@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://3mwoidljy641"]
+
+[ext_resource type="Script" uid="uid://de1jneamqg1s4" path="res://menu/leaderboard/leaderboard.gd" id="1_76jj6"]
+[ext_resource type="Texture2D" uid="uid://cpcpbyjocy1kl" path="res://assets/sprites/buttons/back.png" id="2_gbrsr"]
+[ext_resource type="Texture2D" uid="uid://bhx4ik5pihwjp" path="res://assets/sprites/buttons/back_pressed.png" id="3_fkxi1"]
+
+[node name="Leaderboard" type="Control" unique_id=1289028245]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_76jj6")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=756935672]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7529412)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=280530821]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1713892163]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=602787926]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer" unique_id=1816389839]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=611539748]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Loading"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=23407486]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("2_gbrsr")
+texture_pressed = ExtResource("3_fkxi1")
+stretch_mode = 5
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back"]

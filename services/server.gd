@@ -1,7 +1,11 @@
 extends HTTPRequest
 
 
-var _url: String = "https://netris.neclor.com/leaderboard"
+var _url: String = "https://netris.neclor.com/Leaderboard"
+
+
+func _init() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 
 func send_score(player_name: String, score: int) -> void:
@@ -15,12 +19,12 @@ func send_score(player_name: String, score: int) -> void:
 
 
 func load_leaderboard() -> Array[Dictionary]:
-	request(_url)
+	request(_url, ["Content-Type: application/json"])
 	var result: Array = await request_completed
 	if result[1] != 200: return []
 
 	var body: PackedByteArray = result[3]
-	var json = JSON.parse_string(body.get_string_from_utf8())
+	var json: Array = JSON.parse_string(body.get_string_from_utf8())
 	if typeof(json) != Variant.Type.TYPE_ARRAY: return []
 
-	return json
+	return Array(json, Variant.Type.TYPE_DICTIONARY, "", null)

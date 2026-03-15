@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://bxyf2dfq8woxc"]
+
+[ext_resource type="Script" uid="uid://h4hcuosvtldk" path="res://menu/main_menu/main_menu.gd" id="1_winya"]
+[ext_resource type="Texture2D" uid="uid://d0bau8xi6r0ou" path="res://assets/sprites/buttons/play.png" id="3_1x3cv"]
+[ext_resource type="Script" uid="uid://bi11x3yq0mkua" path="res://menu/main_menu/name_text_edit.gd" id="3_jc45y"]
+[ext_resource type="Texture2D" uid="uid://b5e8glcabes0w" path="res://assets/sprites/buttons/leaderboard.png" id="4_jc45y"]
+[ext_resource type="PackedScene" uid="uid://3mwoidljy641" path="res://menu/leaderboard/leaderboard.tscn" id="5_prid6"]
+
+[node name="MainMenu" type="CanvasLayer" unique_id=1677243929]
+process_mode = 3
+script = ExtResource("1_winya")
+
+[node name="Control" type="Control" parent="." unique_id=1051345076]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=925715492]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/MarginContainer" unique_id=1696499905]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/CenterContainer" unique_id=754419219]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/CenterContainer/VBoxContainer" unique_id=1289067498]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Netris Remake"
+
+[node name="NameTextEdit" type="TextEdit" parent="Control/MarginContainer/CenterContainer/VBoxContainer" unique_id=1241778798]
+custom_minimum_size = Vector2(250, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Write your nickname"
+script = ExtResource("3_jc45y")
+
+[node name="PlayButton" type="TextureButton" parent="Control/MarginContainer/CenterContainer/VBoxContainer" unique_id=1815947458]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_1x3cv")
+stretch_mode = 5
+
+[node name="LeaderboardButton" type="TextureButton" parent="Control/MarginContainer/CenterContainer/VBoxContainer" unique_id=1089496393]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("4_jc45y")
+stretch_mode = 5
+
+[node name="Leaderboard" parent="Control" unique_id=1289028245 instance=ExtResource("5_prid6")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[connection signal="text_changed" from="Control/MarginContainer/CenterContainer/VBoxContainer/NameTextEdit" to="Control/MarginContainer/CenterContainer/VBoxContainer/NameTextEdit" method="_on_text_changed"]
+[connection signal="pressed" from="Control/MarginContainer/CenterContainer/VBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
+[connection signal="quit" from="Control/Leaderboard" to="." method="_on_leaderboard_quit"]

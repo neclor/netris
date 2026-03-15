@@ -5,7 +5,6 @@ signal back
 
 
 @onready var timer: Timer = %Timer
-@onready var audio_stream_player: AudioStreamPlayer = %AudioStreamPlayer
 @onready var field_node_2d: FieldNode = $FieldNode
 
 @onready var hud: CanvasLayer = $Hud
@@ -79,6 +78,7 @@ func _on_swap_allowed_changed(allowed: bool) -> void:
 
 
 func _on_game_over() -> void:
+	Server.send_score(Global.player_name, _game.score)
 	game_over_container.show()
 
 
@@ -142,7 +142,7 @@ func _screen_touch(event: InputEventScreenTouch) -> void:
 func _screen_drag(event: InputEventScreenDrag) -> void:
 	var screen: Vector2 = get_viewport_rect().size
 	var step: Vector2 = Vector2(screen.x * 0.05, screen.y * 0.05)
-	var drop_velocity: float = screen.y * 2
+	var drop_velocity: float = screen.y * 1.5
 	_is_drag = true
 	var delta: Vector2i = event.position - _touch_position
 	if event.velocity.y >= drop_velocity and not _drag_dropped:

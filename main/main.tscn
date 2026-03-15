@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://vcpsh1tex135"]
 
-[ext_resource type="PackedScene" uid="uid://bxyf2dfq8woxc" path="res://menu/main_menu.tscn" id="1_53q0u"]
+[ext_resource type="PackedScene" uid="uid://bxyf2dfq8woxc" path="res://menu/main_menu/main_menu.tscn" id="1_53q0u"]
 [ext_resource type="Script" uid="uid://bxuwjfvfx1vn1" path="res://main/main.gd" id="1_xwkvk"]
 [ext_resource type="PackedScene" uid="uid://vsedpuntxk72" path="res://game/game_root.tscn" id="2_pjrb6"]
 
@@ -33,8 +33,9 @@ metadata/_edit_lock_ = true
 [node name="MainMenu" parent="." unique_id=1978036924 instance=ExtResource("1_53q0u")]
 
 [node name="GameRoot" parent="." unique_id=411566690 instance=ExtResource("2_pjrb6")]
-visible = false
 
+[connection signal="pressed" from="MainMenu/Control/MarginContainer/CenterContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="back" from="GameRoot" to="." method="_on_game_root_back"]
 
 [editable path="MainMenu"]
+[editable path="MainMenu/Control/Leaderboard"]

@@ -114,7 +114,6 @@ func try_move_figure(direction: Figure.Direction) -> bool:
 		return true
 	elif direction == Figure.Direction.DOWN:
 		_place_current_figure()
-		print("placed")
 	return false
 
 
