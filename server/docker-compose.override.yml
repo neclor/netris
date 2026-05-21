@@ -1,0 +1,6 @@
+services:
+  netris-server:
+    build:
+      context: .
+      dockerfile: NetrisServer/Dockerfile
+    image: netris-server:latest

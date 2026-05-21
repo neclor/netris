@@ -1,0 +1,46 @@
+name: Build game (Web)
+
+on:
+  push:
+    branches: [main]
+    paths: [game/**]
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.6.0
+          use-dotnet: false
+          include-templates: true
+
+      - name: Export web build
+        working-directory: game
+        run: |
+          mkdir -p web
+          godot --headless --export-release "Web" web/index.html
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: netris-web
+          path: game/web
+          retention-days: 1
+
+      - name: Zip web build
+        run: cd game/web && zip -r ../../netris-web.zip .
+
+      - name: Update latest release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Latest web build
+          prerelease: true
+          make_latest: true
+          files: netris-web.zip
