@@ -2,7 +2,7 @@ name: netris
 
 services:
   netris-server:
-    image: ghcr.io/neclor/netris-server:latest
+    image: ghcr.io/neclor/netris/server:latest
     container_name: netris-server
     env_file: .env
     environment:
