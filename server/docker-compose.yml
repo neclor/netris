@@ -11,7 +11,7 @@ services:
     ports:
       - "${SERVER_PORT:-8080}:8080"
     volumes:
-      - ${HOST_DATA_DIR:-./data}:/data
+      - netris_data:/data
     restart: unless-stopped
     deploy:
       resources:
@@ -25,3 +25,6 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+volumes:
+  netris_data:
