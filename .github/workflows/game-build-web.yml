@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths: [game/**]
+  workflow_dispatch:
 
 jobs:
   export:
