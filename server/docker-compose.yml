@@ -7,11 +7,11 @@ services:
     env_file: .env
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      Leaderboard__FilePath: /data/netris_leaderboard.csv
+      Leaderboard__FilePath: /app/data/leaderboard.csv
     ports:
       - "${SERVER_PORT:-8080}:8080"
     volumes:
-      - netris_data:/data
+      - netris-data:/app/data
     restart: unless-stopped
     deploy:
       resources:
@@ -21,10 +21,7 @@ services:
         reservations:
           memory: 64M
     logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "3"
+      driver: journald
 
 volumes:
-  netris_data:
+  netris-data:

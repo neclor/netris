@@ -36,7 +36,7 @@ jobs:
               curl -fsSL https://raw.githubusercontent.com/${{ github.repository }}/main/server/docker-compose.yml \
                 -o docker-compose.yml
 
-              docker compose pull && docker compose up -d
+              podman compose pull && podman compose up -d
             "
 
           rm ssh_key
