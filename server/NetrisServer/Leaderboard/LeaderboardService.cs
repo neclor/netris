@@ -2,9 +2,9 @@ using Microsoft.Extensions.Options;
 
 namespace NetrisServer;
 
-#pragma warning disable CA1812
-internal sealed class LeaderboardService(IOptions<LeaderboardOptions> options) : IDisposable {
-#pragma warning restore CA1812
+#pragma warning disable CA1515
+public sealed class LeaderboardService(IOptions<LeaderboardOptions> options) : IDisposable {
+#pragma warning restore CA1515
 
 	private readonly SemaphoreSlim _semaphore = new(1, 1);
 	private readonly LeaderboardOptions _options = options.Value;

@@ -1,8 +1,8 @@
 namespace NetrisServer;
 
-#pragma warning disable CA1812
-internal sealed class LeaderboardOptions {
-#pragma warning restore CA1812
+#pragma warning disable CA1515
+public sealed class LeaderboardOptions {
+#pragma warning restore CA1515
 	public const string SectionName = "Leaderboard";
 
 	public string FilePath { get; init; } = "leaderboard.csv";
