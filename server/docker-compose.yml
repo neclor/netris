@@ -21,7 +21,10 @@ services:
         reservations:
           memory: 64M
     logging:
-      driver: journald
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   netris-data:
