@@ -15,9 +15,9 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Netris Remake"
-config/version="1.0.1"
+config/version="1.0.2"
 run/main_scene="uid://vcpsh1tex135"
-config/features=PackedStringArray("4.6", "Mobile")
+config/features=PackedStringArray("4.7", "Mobile")
 boot_splash/bg_color=Color(0.05490196, 0.03137255, 0.10980392, 1)
 boot_splash/use_filter=false
 boot_splash/image="uid://c6rk8iyguv0pd"

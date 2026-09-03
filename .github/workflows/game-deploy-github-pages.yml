@@ -1,17 +1,14 @@
 name: Deploy game (GitHub Pages)
 
 on:
-  workflow_run:
-    workflows: [Build game (Web)]
-    types: [completed]
-    branches: [main]
+  release:
+    types: [published]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
-      actions: read
+      contents: read
       pages: write
       id-token: write
     environment:
@@ -19,13 +16,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: netris-web
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: web
+      - name: Download release asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          mkdir -p web
+          gh release download "$TAG" --repo "${{ github.repository }}" --pattern netris-web.zip --output netris-web.zip
+          unzip -o netris-web.zip -d web
 
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -1,0 +1,82 @@
+name: Release game (Web)
+
+on:
+  push:
+    tags: ['[0-9]+.[0-9]+.[0-9]+']
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag to (re)release
+        required: true
+
+concurrency:
+  group: release-web-${{ github.event.release.tag_name || inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+env:
+  ASSET_NAME: netris-web.zip
+
+jobs:
+  release:
+    name: Publish web release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve tag
+        id: tag
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+          case "$GITHUB_EVENT_NAME" in
+            push)              tag="$GITHUB_REF_NAME" ;;
+            release)           tag="$RELEASE_TAG" ;;
+            workflow_dispatch) tag="$INPUT_TAG" ;;
+            *) echo "::error::unexpected event '$GITHUB_EVENT_NAME'"; exit 1 ;;
+          esac
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.tag.outputs.tag }}
+
+      - uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.0
+          use-dotnet: false
+          include-templates: true
+
+      - name: Export web build
+        working-directory: game
+        run: |
+          mkdir -p web
+          godot --headless --export-release "Web" web/index.html
+
+      - name: Zip web build
+        run: cd game/web && zip -r "$GITHUB_WORKSPACE/$ASSET_NAME" .
+
+      - name: Attest release asset provenance
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: ${{ env.ASSET_NAME }}
+
+      - name: Publish release asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          set -euo pipefail
+          # Tag push / manual run: stage a draft as the approval gate.
+          # `release: published` only fires once the draft is published, and the
+          # release already exists by then, so create is skipped.
+          gh release view "$TAG" >/dev/null 2>&1 \
+            || gh release create "$TAG" --title "$TAG" --generate-notes --draft
+          gh release upload "$TAG" "$ASSET_NAME" --clobber

@@ -1,0 +1,30 @@
+name: Build server
+
+on:
+  push:
+    branches: [main]
+    paths: [server/**]
+  pull_request:
+    paths: [server/**]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        working-directory: server/NetrisServer
+        run: dotnet restore
+
+      - name: Build
+        working-directory: server/NetrisServer
+        run: dotnet build --no-restore -c Release
