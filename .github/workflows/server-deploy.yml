@@ -3,6 +3,9 @@ name: Deploy server docker
 on:
   release:
     types: [published]
+  workflow_dispatch:
+
+permissions: {}
 
 jobs:
   deploy:
@@ -34,7 +37,8 @@ jobs:
                 -o docker-compose.yml
 
               podman compose pull
-              podman compose up -d
+              podman compose up -d --force-recreate
+              podman image prune -f
             "
 
           rm ssh_key

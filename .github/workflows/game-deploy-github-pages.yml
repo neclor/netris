@@ -3,6 +3,9 @@ name: Deploy game (GitHub Pages)
 on:
   release:
     types: [published]
+  workflow_dispatch:
+
+permissions: {}
 
 jobs:
   deploy:
@@ -19,17 +22,16 @@ jobs:
       - name: Download release asset
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: ${{ github.event.release.tag_name }}
         run: |
           set -euo pipefail
           mkdir -p web
-          gh release download "$TAG" --repo "${{ github.repository }}" --pattern netris-web.zip --output netris-web.zip
+          gh release download --repo "${{ github.repository }}" --pattern netris-web.zip --output netris-web.zip
           unzip -o netris-web.zip -d web
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: web
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
