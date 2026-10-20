@@ -5,12 +5,15 @@ on:
     types: [published]
   workflow_dispatch:
 
+concurrency:
+  group: game-deploy
+  cancel-in-progress: false
+
 permissions: {}
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Deploy to server
         env:
@@ -18,20 +21,19 @@ jobs:
           USER: ${{ secrets.SSH_USER }}
           PORT: ${{ secrets.SSH_PORT }}
           KEY: ${{ secrets.SSH_KEY }}
-
           WEB_DIR: ${{ vars.WEB_DIR }}
-
         run: |
           echo "$KEY" > ssh_key
           chmod 600 ssh_key
 
           ssh -i ssh_key \
-            -p $PORT \
+            -p "$PORT" \
             -o StrictHostKeyChecking=no \
-            $USER@$HOST \
-            "curl -fsSL https://github.com/${{ github.repository }}/releases/latest/download/netris-web.zip \
+            "$USER@$HOST" \
+            "curl -fsSL https://github.com/$GITHUB_REPOSITORY/releases/latest/download/netris-web.zip \
               -o /tmp/netris-web.zip \
-              && unzip -o /tmp/netris-web.zip -d $WEB_DIR \
+              && mkdir -p '$WEB_DIR' \
+              && unzip -o /tmp/netris-web.zip -d '$WEB_DIR' \
               && rm /tmp/netris-web.zip"
 
           rm ssh_key

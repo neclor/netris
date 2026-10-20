@@ -5,12 +5,15 @@ on:
     types: [published]
   workflow_dispatch:
 
+concurrency:
+  group: server-deploy
+  cancel-in-progress: false
+
 permissions: {}
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Deploy to server
         env:
@@ -18,22 +21,20 @@ jobs:
           USER: ${{ secrets.SSH_USER }}
           PORT: ${{ secrets.SSH_PORT }}
           KEY: ${{ secrets.SSH_KEY }}
-
           SERVER_DIR: ${{ vars.SERVER_DIR }}
-
         run: |
           echo "$KEY" > ssh_key
           chmod 600 ssh_key
 
           ssh -i ssh_key \
-            -p $PORT \
+            -p "$PORT" \
             -o StrictHostKeyChecking=no \
-            $USER@$HOST \
+            "$USER@$HOST" \
             "
-              mkdir -p $SERVER_DIR
-              cd $SERVER_DIR
+              mkdir -p '$SERVER_DIR'
+              cd '$SERVER_DIR'
 
-              curl -fsSL https://raw.githubusercontent.com/${{ github.repository }}/main/server/docker-compose.yml \
+              curl -fsSL https://raw.githubusercontent.com/$GITHUB_REPOSITORY/main/server/docker-compose.yml \
                 -o docker-compose.yml
 
               podman compose pull

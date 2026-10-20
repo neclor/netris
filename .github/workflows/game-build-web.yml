@@ -14,12 +14,12 @@ permissions:
 jobs:
   export:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - uses: chickensoft-games/setup-godot@v2
+      - name: Set up Godot
+        uses: chickensoft-games/setup-godot@v2
         with:
           version: 4.7.0
           use-dotnet: false

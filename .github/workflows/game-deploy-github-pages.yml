@@ -5,6 +5,10 @@ on:
     types: [published]
   workflow_dispatch:
 
+concurrency:
+  group: game-deploy-github-pages
+  cancel-in-progress: false
+
 permissions: {}
 
 jobs:
@@ -17,20 +21,23 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      - name: Download release asset
+      - name: Download game build from release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          mkdir -p web
-          gh release download --repo "${{ github.repository }}" --pattern netris-web.zip --output netris-web.zip
-          unzip -o netris-web.zip -d web
+          gh release download \
+            --repo "$GITHUB_REPOSITORY" \
+            --pattern netris-web.zip \
+            --dir .
+          mkdir -p dist
+          unzip -o netris-web.zip -d dist
 
-      - uses: actions/upload-pages-artifact@v5
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v5
         with:
-          path: web
+          path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment
