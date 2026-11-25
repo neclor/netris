@@ -4,15 +4,11 @@ services:
   netris-server:
     image: ghcr.io/neclor/netris/server:latest
     container_name: netris-server
-    env_file: .env
-    environment:
-      ASPNETCORE_ENVIRONMENT: Production
-      Leaderboard__FilePath: /app/data/leaderboard.csv
     ports:
       - "${SERVER_PORT:-8080}:8080"
     volumes:
       - netris-data:/app/data
-    restart: unless-stopped
+
     deploy:
       resources:
         limits:
@@ -25,6 +21,8 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+    restart: unless-stopped
 
 volumes:
   netris-data:
